@@ -5,7 +5,7 @@ import { MatchesModule } from './matches/matches.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://root:root@localhost:27017/sr-challenges',
+    MongooseModule.forRoot('mongodb://root:root@mongo:27017/sr-challenges',
       { authSource: 'admin', useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false }
     ),
     ChallengesModule,

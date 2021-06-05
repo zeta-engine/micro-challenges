@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-challenges
+  labels:
+    app: micro-challenges
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: micro-challenges
+  template:
+    metadata:
+      labels:
+        app: micro-challenges
+    spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
+      containers:
+      - name: micro-challenges
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        ports:
+        - containerPort: 3001
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: micro-challenges
+spec:
+  selector:
+    app: micro-challenges
+  type: ClusterIP
+  ports:
+  - name: port3001
+    port: 3001
+    targetPort: 3001
